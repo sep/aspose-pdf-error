@@ -21,8 +21,11 @@ namespace PdfToWordExample
             var srcFileName = args.First();
             var dstFileName = Path.ChangeExtension(srcFileName, "docx");
 
-            const string licenseFile = "Aspose.Total.lic";
-            new License().SetLicense(licenseFile);
+            const string licenseFile = "Aspose.lic";
+            if (File.Exists(licenseFile))
+            {
+                new License().SetLicense(licenseFile);
+            }
 
             try
             {
