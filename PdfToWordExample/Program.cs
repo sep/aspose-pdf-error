@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Aspose.Pdf;
 
 namespace PdfToWordExample
@@ -13,6 +14,8 @@ namespace PdfToWordExample
 
         static int Main(string[] args)
         {
+            PrintRuntimeInfo();
+
             if (args.Length != 1)
             {
                 Console.Error.WriteLine("This program takes 1 argument: the full path to a PDF file to convert to a docx file");
@@ -43,6 +46,19 @@ namespace PdfToWordExample
                 Console.Error.WriteLine(ex.ToString());
                 return ExitCode_GeneralError;
             }
+        }
+
+        private static void PrintRuntimeInfo()
+        {
+            var os = Environment.OSVersion.VersionString;
+            var runtime = Environment.Version.ToString();
+
+#if !NET462
+            os = $"{os} - (core info: {RuntimeInformation.OSDescription})";
+            runtime = $"{runtime} - (core info: {RuntimeInformation.FrameworkDescription})";
+#endif
+            Console.WriteLine($"Operating System: {os}");
+            Console.WriteLine($"Runtime: {runtime}");
         }
     }
 }
